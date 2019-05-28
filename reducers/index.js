@@ -12,7 +12,7 @@ function decks(state = {}, action) {
                 ...state,
                 [action.title]: {
                     title: action.title,
-                    questions: []
+                    cards: []
                 }
             };
         case CREATE_CARD:
@@ -20,8 +20,8 @@ function decks(state = {}, action) {
                 ...state,
                 [action.card.title]: {
                     title: action.card.title,
-                    questions: [
-                        ...state[action.card.title].questions,
+                    cards: [
+                        ...state[action.card.title].cards,
                         { question: action.card.question, answer: action.card.answer }
                     ]
                 }

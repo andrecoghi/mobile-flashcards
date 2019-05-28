@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
-export const FLASHCARDS_STORAGE_KEY = 'decks:mobile-flashcards';
+export const FLASHCARDS_STORAGE_KEY = 'decks:mobile-flashxxcards';
 
 export function formatDeckResults(results) {
     return results === null
@@ -8,7 +8,7 @@ export function formatDeckResults(results) {
         : JSON.parse(results);
 }
 
-function setInitData() {
+async function setInitData() {
     const initData = {
         ['General Trivia']: {
             title: 'General Trivia',
@@ -57,8 +57,14 @@ function setInitData() {
             ]
         }
     };
-
-    AsyncStorage.setItem(FLASHCARDS_STORAGE_KEY, JSON.stringify(initData));
+    try {
+        await AsyncStorage.setItem(
+            FLASHCARDS_STORAGE_KEY,
+            JSON.stringify(initData)
+        ).then(data => data);
+    } catch (e) {
+        console.log("InitData Error", e);
+    }
 
     return initData;
 }

@@ -3,9 +3,9 @@ import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { styles } from '../../utils/styles';
 
 export function Card(props) {
-    const { index, showQuestion, questions, onQuestionPress, onButtonPress } = props,
-        question = questions[index].question,
-        answer = questions[index].answer;
+    const { index, showQuestion, cards: cards, onQuestionPress, onButtonPress } = props,
+        question = cards[index].question,
+        answer = cards[index].answer;
 
     const styleCard = StyleSheet.create({
         count: {
@@ -30,7 +30,7 @@ export function Card(props) {
     });
 
     return <View style={styles.container}>
-        <Text style={styleCard.count}>{index + 1} / {questions.length}</Text>
+        <Text style={styleCard.count}>{index + 1} / {cards.length}</Text>
 
         <View style={{ flex: 0.8, justifyContent: 'flex-end', alignItems: 'center' }}>
             {showQuestion &&

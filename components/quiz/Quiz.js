@@ -9,7 +9,7 @@ import { NavigationActions } from 'react-navigation';
 
 class Quiz extends Component {
     state = {
-        questions: [],
+        cards: [],
         currentQuestionIdx: 0,
         showQuestion: true
     };
@@ -29,7 +29,7 @@ class Quiz extends Component {
             }
         );
 
-        const questions = deck.questions.map((question) => {
+        const cards = deck.cards.map((question) => {
             return {
                 question: question.question,
                 answer: question.answer,
@@ -37,24 +37,24 @@ class Quiz extends Component {
             }
         });
 
-        this.setState({ questions });
+        this.setState({ cards: cards });
 
         clearLocalNotification()
             .then(setLocalNotification)
     }
 
     resetQuiz = () => {
-        const questions = this.state.questions.map((question) => {
+        const cards = this.state.cards.map((question) => {
             return { question: question.question, answer: question.answer, correct: false }
         });
 
-        this.setState({ questions, currentQuestionIdx: 0, showQuestion: true });
+        this.setState({ cards, currentQuestionIdx: 0, showQuestion: true });
     };
 
     handleButtons = (status) => {
-        const questions = this.state.questions;
-        questions[this.state.currentQuestionIdx].correct = status;
-        this.setState({ questions, currentQuestionIdx: this.state.currentQuestionIdx + 1, showQuestion: true });
+        const cards = this.state.cards;
+        cards[this.state.currentQuestionIdx].correct = status;
+        this.setState({ cards, currentQuestionIdx: this.state.currentQuestionIdx + 1, showQuestion: true });
     };
 
     toggleQuestion = () => {
@@ -64,29 +64,29 @@ class Quiz extends Component {
     render() {
         return (
             <View style={styles.container}>
-                {this.state.questions.length > 0 &&
-                    this.state.currentQuestionIdx < this.state.questions.length &&
+                {this.state.cards.length > 0 &&
+                    this.state.currentQuestionIdx < this.state.cards.length &&
                     <Card index={this.state.currentQuestionIdx}
                         showQuestion={this.state.showQuestion}
-                        questions={this.state.questions}
+                        cards={this.state.cards}
                         onQuestionPress={this.toggleQuestion}
                         onButtonPress={this.handleButtons}
                     />
                 }
-                {this.state.questions.length > 0 &&
-                    this.state.currentQuestionIdx >= this.state.questions.length &&
+                {this.state.cards.length > 0 &&
+                    this.state.currentQuestionIdx >= this.state.cards.length &&
                     <View style={styles.container}>
                         <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
-                            {this.state.questions.filter(question => question.correct).length === this.state.questions.length &&
+                            {this.state.cards.filter(question => question.correct).length === this.state.cards.length &&
                                 <MaterialCommunityIcons size={60} style={styleQuiz.checkmarkIcon} name="check-circle" />
                             }
-                            {this.state.questions.filter(question => question.correct).length !== this.state.questions.length &&
+                            {this.state.cards.filter(question => question.correct).length !== this.state.cards.length &&
                                 <MaterialCommunityIcons size={60} style={styleQuiz.alertIcon} name="alert-circle" />
                             }
                             <Text style={styleQuiz.quizDoneText}>You've
-                            got {this.state.questions.filter(question => question.correct).length} out
-                            of {this.state.questions.length} questions correct
-                            ({Math.round(this.state.questions.filter(question => question.correct).length / this.state.questions.length * 100)}%).
+                            got {this.state.cards.filter(question => question.correct).length} out
+                            of {this.state.cards.length} questions correct
+                            ({Math.round(this.state.cards.filter(question => question.correct).length / this.state.cards.length * 100)}%).
                         </Text>
                         </View>
                         <View style={{ flex: 1, justifyContent: 'flex-end' }}>
@@ -104,7 +104,7 @@ class Quiz extends Component {
                         </View>
                     </View>
                 }
-                {this.state.questions.length === 0 &&
+                {this.state.cards.length === 0 &&
                     <Text style={styleQuiz.noQuestions}>This deck is empty.</Text>
                 }
             </View>

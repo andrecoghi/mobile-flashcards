@@ -12,7 +12,7 @@ export function createDeck(title) {
     return AsyncStorage.mergeItem(FLASHCARDS_STORAGE_KEY, JSON.stringify({
         [title]: {
             title: title,
-            questions: []
+            cards: []
         }
     }));
 }
@@ -25,7 +25,7 @@ export function createCard(title, question, answer) {
             return AsyncStorage.mergeItem(FLASHCARDS_STORAGE_KEY, JSON.stringify({
                 [card.title]: {
                     title: card.title,
-                    questions: [...card.questions, { question, answer }]
+                    cards: [...card.cards, { question, answer }]
                 }
             }));
         });

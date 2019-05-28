@@ -7,6 +7,7 @@ import { styles } from '../../utils/styles';
 import DeckListRow from './DeckListRow';
 
 
+
 class DeckList extends Component {
     componentDidMount() {
         const { dispatch } = this.props;
@@ -22,24 +23,24 @@ class DeckList extends Component {
 
     renderItem = ({ item }) => {
         return (
-            <DeckListRow item={item} onDeckPressed={this.deckPressed} />
+            <DeckListRow key={item.title} item={item} onDeckPressed={this.deckPressed} />
         );
     };
 
     render() {
         const { decks } = this.props;
 
-        const deckList = Object.entries(decks).map(
-            deck => {
-                return { title: deck[1].title, key: deck[1].title, questions: deck[1].questions }
-            }
-        );
-
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>Deck list</Text>
-               <FlatList data={deckList}
-                    renderItem={this.renderItem} />
+                <FlatList
+            data={decks}
+            extraData={decks}
+            keyExtractor={item => item.title}
+            renderItem={({ item }) => {
+              return <DeckListRow key={item.title} item={item} onDeckPressed={this.deckPressed} />;
+            }}
+          />
             </View>
         );
     }
@@ -47,7 +48,7 @@ class DeckList extends Component {
 
 function mapStateToProps(decks) {
     return {
-        decks
+        decks: Object.values(decks)
     }
 }
 

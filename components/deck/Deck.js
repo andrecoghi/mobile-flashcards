@@ -43,7 +43,7 @@ class Deck extends Component {
                 {this.state.deck &&
                 <View style={{flex: 0.8, justifyContent: 'flex-end', alignItems: 'center'}}>
                     <Text style={style.deckTitle}>{this.state.deck.title}</Text>
-                    <Text style={style.questionCount}>{this.state.deck.questions.length} cards</Text>
+                    <Text style={style.questionCount}>{this.state.deck.cards.length} cards</Text>
                 </View>
                 }
                 {this.state.deck &&

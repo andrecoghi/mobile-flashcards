@@ -13,14 +13,12 @@ class NewDeck extends Component {
     submit = () => {
         if (this.state.title) {
             const { dispatch } = this.props;
-            const { title } = this.props;
-
-            dispatch(actions.createDeck(title));
-            storage.createDeck(title);
+            dispatch(actions.createDeck(this.state.title));
+            storage.createDeck(this.state.title);
 
             this.setState({ title: '' });
             Keyboard.dismiss();
-            this.props.navigation.navigate('Deck', { deckId: title });
+            this.props.navigation.navigate('Deck', { deckId: this.state.title });
         }
         else {
             alert('Deck name is empty!');

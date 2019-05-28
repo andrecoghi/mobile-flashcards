@@ -33,7 +33,7 @@ export default class DeckListRow extends Component {
         ]
 
         return (
-            <TouchableOpacity
+            <TouchableOpacity key={item.title}
                 style={[style.deck]}
                 onPress={() => this.deckPressed(item.title)}>
 
@@ -42,7 +42,7 @@ export default class DeckListRow extends Component {
                     transform: transformProp
                 }}>
                     <Text style={style.deckTitle}>{item.title}</Text>
-                    <Text>{item.questions.length} cards</Text>
+                    <Text>{item.cards.length} cards</Text>
                 </Animated.View>
             </TouchableOpacity>
         );
